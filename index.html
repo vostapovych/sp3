@@ -95,7 +95,8 @@
             return { name: name, children: d3Children.length ? d3Children : null };
         }
 
-        d3.json("ast.json").then(function(rawData) {
+        d3.json("ast.json")
+            .then(function(rawData) {
             const treeData = transformData(rawData);
             const margin = {top: 20, right: 120, bottom: 20, left: 120};
             const width = 1600 - margin.right - margin.left;
@@ -195,6 +196,11 @@
             });
 
             update(root);
+        })
+        .catch(function(error) {
+            console.error("Error loading AST:", error);
+            document.getElementById("tree-container").innerHTML =
+                '<p style="color: red; text-align: center; margin-top: 50px; font-size: 18px;">❌ Failed to load AST data. Please run main.py first to generate ast.json</p>';
         });
     </script>
 </body>
