@@ -531,3 +531,5 @@ test_code(code_input_wrong_scope, "Out of Scope Variable Error", should_fail=Tru
 print("\n" + "="*60)
 print("ALL TESTS COMPLETED")
 print("="*60)
+
+
