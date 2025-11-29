@@ -3,7 +3,7 @@ import ply.yacc as yacc
 import json
 import sys
 
-# --- Семантичний аналізатор (Таблиця символів) ---
+# Семантичний аналізатор(Таблиця символів)
 class SymbolTable:
     def __init__(self):
         self.scopes = [{}]
@@ -20,7 +20,7 @@ class SymbolTable:
                 return scope[name]
         return None
 
-# --- Окремий семантичний аналізатор для обходу AST ---
+#Окремий семантичний аналізатор для обходу AST ---
 class SemanticAnalyzer:
     def __init__(self):
         self.symbol_table = SymbolTable()
@@ -470,7 +470,7 @@ def test_code(code, name, should_fail=False):
     print(code)
     print('-'*60)
     try:
-        # Крок 1: Парсинг (синтаксичний аналіз)
+        #Крок 1: Парсинг (синтаксичний аналіз)
         ast = parser.parse(code, lexer=lexer.clone())
         if not ast:
             print("✗ Parsing failed, no AST generated.")
@@ -478,7 +478,7 @@ def test_code(code, name, should_fail=False):
 
         print("✓ Parsing successful. AST generated.")
 
-        # Крок 2: Семантичний аналіз
+        #Крок 2: Семантичний аналіз
         analyzer = SemanticAnalyzer()
         if not analyzer.analyze(ast):
             if should_fail:
@@ -489,16 +489,16 @@ def test_code(code, name, should_fail=False):
 
         print("✓ Semantic analysis passed.")
 
-        # Крок 3: Зберігаємо AST
+        #Крок 3: Зберігаємо AST
         with open('ast.json', 'w') as f:
             json.dump(ast, f, indent=2)
 
-        # Крок 4: Генерація коду
+        #Крок 4: Генерація коду
         py_code = generate(ast)
         print("\n--- Generated Python Code ---")
         print(py_code)
 
-        # Крок 5: Виконання
+        #Крок 5: Виконання
         print("\n--- Execution Output ---")
         exec_namespace = {'__builtins__': __builtins__}
         exec(py_code, exec_namespace, exec_namespace)
@@ -518,7 +518,6 @@ def test_code(code, name, should_fail=False):
         import traceback
         traceback.print_exc()
 
-print("\n" + "="*60)
 print("RUNNING COMPREHENSIVE TESTS")
 print("="*60)
 
@@ -530,4 +529,4 @@ test_code(code_input_wrong_scope, "Out of Scope Variable Error", should_fail=Tru
 
 print("\n" + "="*60)
 print("ALL TESTS COMPLETED")
-print("="*60)
+
